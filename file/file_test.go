@@ -16,11 +16,11 @@ func TestDecode_TOML(t *testing.T) {
 		_ = f.Close()
 	})
 
-	_, err = f.Write([]byte(`
+	_, err = f.WriteString(`
 foo = "bar"
 fii = "bir"
 [yi]
-`))
+`)
 	require.NoError(t, err)
 
 	element := &Yo{
@@ -138,11 +138,11 @@ func TestDecode_YAML(t *testing.T) {
 		_ = f.Close()
 	})
 
-	_, err = f.Write([]byte(`
+	_, err = f.WriteString(`
 foo: bar
 fii: bir
 yi: {}
-`))
+`)
 	require.NoError(t, err)
 
 	element := &Yo{
@@ -293,7 +293,6 @@ meta:
 	}
 
 	for _, test := range testCases {
-		test := test
 		t.Run(test.desc, func(t *testing.T) {
 			t.Parallel()
 

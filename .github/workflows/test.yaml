@@ -1,0 +1,31 @@
+name: go
+
+on:
+  pull_request:
+
+jobs:
+
+  cross:
+    name: test
+    runs-on: ${{ matrix.os }}
+    env:
+      CGO_ENABLED: 0
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      # https://github.com/marketplace/actions/checkout
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # https://github.com/marketplace/actions/setup-go-environment
+      - name: Set up Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: 'go.mod'
+
+      - name: Test
+        run: go test -v -cover ./...
+

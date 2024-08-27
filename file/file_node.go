@@ -66,8 +66,6 @@ func getRootFieldNames(element interface{}) []string {
 }
 
 func getFieldNames(rootType reflect.Type) []string {
-	var names []string
-
 	if rootType.Kind() == reflect.Pointer {
 		rootType = rootType.Elem()
 	}
@@ -76,7 +74,8 @@ func getFieldNames(rootType reflect.Type) []string {
 		return nil
 	}
 
-	for i := 0; i < rootType.NumField(); i++ {
+	var names []string
+	for i := range rootType.NumField() {
 		field := rootType.Field(i)
 
 		if !parser.IsExported(field) {

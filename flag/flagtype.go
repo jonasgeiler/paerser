@@ -36,7 +36,7 @@ func addFlagType(ref map[string]reflect.Kind, name string, typ reflect.Type) {
 		addFlagType(ref, name, typ.Elem())
 
 	case reflect.Struct:
-		for j := 0; j < typ.NumField(); j++ {
+		for j := range typ.NumField() {
 			subField := typ.Field(j)
 
 			if !parser.IsExported(subField) {

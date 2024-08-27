@@ -39,7 +39,6 @@ func TestCommand_AddCommand(t *testing.T) {
 	}
 
 	for _, test := range testCases {
-		test := test
 		t.Run(test.desc, func(t *testing.T) {
 			t.Parallel()
 
@@ -80,7 +79,7 @@ func TestCommand_PrintHelp(t *testing.T) {
 						Field string
 					}
 				}{},
-				Run: func(args []string) error {
+				Run: func(_ []string) error {
 					return nil
 				},
 				CustomHelpFunc: func(w io.Writer, _ *Command) error {
@@ -102,7 +101,6 @@ func TestCommand_PrintHelp(t *testing.T) {
 	}
 
 	for _, test := range testCases {
-		test := test
 		t.Run(test.desc, func(t *testing.T) {
 			t.Parallel()
 
@@ -740,7 +738,7 @@ func Test_execute_configuration(t *testing.T) {
 		Description:   "sub1",
 		Configuration: element,
 		Resources:     []ResourceLoader{&FlagLoader{}},
-		Run: func(args []string) error {
+		Run: func(_ []string) error {
 			return nil
 		},
 	}
@@ -804,7 +802,7 @@ func Test_execute_configuration_file(t *testing.T) {
 				Description:   "sub1",
 				Configuration: element,
 				Resources:     []ResourceLoader{fileLoader, &FlagLoader{}},
-				Run: func(args []string) error {
+				Run: func(_ []string) error {
 					return nil
 				},
 			}
@@ -837,7 +835,7 @@ func Test_execute_help(t *testing.T) {
 		Name:          "root",
 		Description:   "Description for root",
 		Configuration: element,
-		Run: func(args []string) error {
+		Run: func(_ []string) error {
 			return nil
 		},
 	}

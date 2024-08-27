@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
 	"sort"
@@ -42,7 +43,7 @@ func EncodeToFlat(element interface{}, node *Node, opts FlatOpts) ([]Flat, error
 
 	elem := reflect.ValueOf(element)
 	if elem.Kind() == reflect.Struct {
-		return nil, fmt.Errorf("structs are not supported, use pointer instead")
+		return nil, errors.New("structs are not supported, use pointer instead")
 	}
 
 	encoder := encoderToFlat{FlatOpts: opts}

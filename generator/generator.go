@@ -69,7 +69,7 @@ func setPtr(field reflect.Value) {
 }
 
 func setStruct(field reflect.Value) {
-	for i := 0; i < field.NumField(); i++ {
+	for i := range field.NumField() {
 		fd := field.Field(i)
 		structField := field.Type().Field(i)
 

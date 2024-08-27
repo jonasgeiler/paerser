@@ -34,8 +34,6 @@ func getRootPrefixes(element interface{}, prefix string) []string {
 }
 
 func getPrefixes(prefix string, rootType reflect.Type) []string {
-	var names []string
-
 	if rootType.Kind() == reflect.Pointer {
 		rootType = rootType.Elem()
 	}
@@ -44,7 +42,8 @@ func getPrefixes(prefix string, rootType reflect.Type) []string {
 		return nil
 	}
 
-	for i := 0; i < rootType.NumField(); i++ {
+	var names []string
+	for i := range rootType.NumField() {
 		field := rootType.Field(i)
 
 		if !parser.IsExported(field) {

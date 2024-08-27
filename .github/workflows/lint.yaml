@@ -1,0 +1,39 @@
+name: golangci
+
+on:
+  pull_request:
+
+jobs:
+
+  main:
+    name: lint
+    runs-on: ubuntu-latest
+    env:
+      GOLANGCI_LINT_VERSION: v1.60
+      CGO_ENABLED: 0
+
+    steps:
+      # https://github.com/marketplace/actions/checkout
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # https://github.com/marketplace/actions/setup-go-environment
+      - name: Set up Go ${{ env.GO_VERSION }}
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: 'go.mod'
+
+      - name: Check and get dependencies
+        run: |
+          go mod tidy
+          git diff --exit-code go.mod
+          git diff --exit-code go.sum
+          go mod download
+
+      # https://github.com/marketplace/actions/golangci-lint
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: "${{ env.GOLANGCI_LINT_VERSION }}"

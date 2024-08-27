@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"errors"
 	"fmt"
 	"math"
 	"reflect"
@@ -52,7 +53,7 @@ func (f filler) Fill(element interface{}, node *Node) error {
 
 	root := reflect.ValueOf(element)
 	if root.Kind() == reflect.Struct {
-		return fmt.Errorf("struct are not supported, use pointer instead")
+		return errors.New("struct are not supported, use pointer instead")
 	}
 
 	return f.fill(root.Elem(), node)
@@ -169,7 +170,7 @@ func makeSlice(field reflect.Value, values []string) error {
 	slice := reflect.MakeSlice(field.Type(), len(values), len(values))
 	field.Set(slice)
 
-	for i := 0; i < len(values); i++ {
+	for i := range len(values) {
 		value := strings.TrimSpace(values[i])
 
 		switch field.Type().Elem().Kind() {
@@ -474,7 +475,7 @@ func (f filler) fillRawTypedSlice(s string) (reflect.Value, error) {
 
 	slice := reflect.MakeSlice(reflect.TypeOf([]interface{}{}), len(raw[2:]), len(raw[2:]))
 
-	for i := 0; i < len(raw[2:]); i++ {
+	for i := range len(raw[2:]) {
 		switch kind {
 		case reflect.Bool:
 			val, err := strconv.ParseBool(raw[i+2])
@@ -554,7 +555,7 @@ func (f filler) cleanRawValue(value reflect.Value) (reflect.Value, error) {
 			return value, nil
 		}
 
-		for i := 0; i < value.Len(); i++ {
+		for i := range value.Len() {
 			if !value.Index(i).IsZero() {
 				rawValue, err := f.cleanRawValue(value.Index(i))
 				if err != nil {

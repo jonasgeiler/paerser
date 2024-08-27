@@ -58,7 +58,7 @@ func decodeRaw(node *parser.Node, vData reflect.Value, filters ...string) error 
 			var values []string
 			var kind reflect.Kind
 
-			for i := 0; i < value.Len(); i++ {
+			for i := range value.Len() {
 				item := value.Index(i)
 
 				// Try to guess the kind of the slice.

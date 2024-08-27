@@ -1,7 +1,5 @@
 .PHONY: clean lint lint-fix test
 
-export GO111MODULE=on
-
 default: lint test
 
 test:

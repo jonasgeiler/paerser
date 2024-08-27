@@ -25,7 +25,7 @@ func TestPrintHelp(t *testing.T) {
 					Name:          "root",
 					Description:   "Description for root",
 					Configuration: element,
-					Run: func(args []string) error {
+					Run: func(_ []string) error {
 						return nil
 					},
 				}
@@ -85,7 +85,7 @@ Flags:
 					Name:          "sub1",
 					Description:   "Description for sub1",
 					Configuration: element,
-					Run: func(args []string) error {
+					Run: func(_ []string) error {
 						return nil
 					},
 				})
@@ -95,7 +95,7 @@ Flags:
 					Name:          "sub2",
 					Description:   "Description for sub2",
 					Configuration: element,
-					Run: func(args []string) error {
+					Run: func(_ []string) error {
 						return nil
 					},
 				})
@@ -149,7 +149,7 @@ Flags:
 					Name:          "root",
 					Description:   "Description for root",
 					Configuration: nil,
-					Run: func(args []string) error {
+					Run: func(_ []string) error {
 						return nil
 					},
 				}
@@ -173,7 +173,7 @@ Use "root [command] --help" for help on any command.
 							Field string
 						}
 					}{},
-					Run: func(args []string) error {
+					Run: func(_ []string) error {
 						return nil
 					},
 				}
@@ -197,7 +197,6 @@ Flags:
 	}
 
 	for _, test := range testCases {
-		test := test
 		t.Run(test.desc, func(t *testing.T) {
 			t.Parallel()
 

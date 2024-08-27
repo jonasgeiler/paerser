@@ -64,7 +64,7 @@ func (e encoderToNode) setNodeValue(node *Node, rValue reflect.Value) error {
 func (e encoderToNode) setStructValue(node *Node, rValue reflect.Value) error {
 	rType := rValue.Type()
 
-	for i := 0; i < rValue.NumField(); i++ {
+	for i := range rValue.NumField() {
 		field := rType.Field(i)
 		fieldValue := rValue.Field(i)
 
@@ -151,7 +151,7 @@ func (e encoderToNode) setSliceValue(node *Node, rValue reflect.Value) error {
 
 	if rValue.Type().Elem().Kind() == reflect.Struct ||
 		rValue.Type().Elem().Kind() == reflect.Pointer && rValue.Type().Elem().Elem().Kind() == reflect.Struct {
-		for i := 0; i < rValue.Len(); i++ {
+		for i := range rValue.Len() {
 			child := &Node{Name: "[" + strconv.Itoa(i) + "]"}
 
 			eValue := rValue.Index(i)
@@ -169,7 +169,7 @@ func (e encoderToNode) setSliceValue(node *Node, rValue reflect.Value) error {
 
 	var values []string
 
-	for i := 0; i < rValue.Len(); i++ {
+	for i := range rValue.Len() {
 		eValue := rValue.Index(i)
 
 		switch eValue.Kind() {
