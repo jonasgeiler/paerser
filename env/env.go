@@ -69,7 +69,7 @@ func Encode(prefix string, element interface{}) ([]parser.Flat, error) {
 }
 
 func checkPrefix(prefix string) error {
-	prefixPattern := `^[a-zA-Z0-9]+_$`
+	prefixPattern := `^[a-zA-Z0-9][a-zA-Z0-9_]*_$`
 	matched, err := regexp.MatchString(prefixPattern, prefix)
 	if err != nil {
 		return err
